@@ -1,0 +1,4 @@
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/@.__________________________________________________OOO/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+convert /Users/dylong/Main/projects/xy_temp2/② 附件二_数据表_Jolie FemTech.xlsx as a Calc document -> /Users/dylong/Main/projects/xy_temp2/audit_artifacts/xlsx_pdf_20260907/② 附件二_数据表_Jolie FemTech.pdf using filter : calc_pdf_Export

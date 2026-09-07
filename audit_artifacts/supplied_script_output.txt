@@ -1,0 +1,33 @@
+Intercept  beta=  15.2500 SE=  0.5924 p= <0.0001 | HC3 SE=  0.5286 p= <0.0001
+regime     beta=  -0.0531 SE=  0.0792 p=  0.5038 | HC3 SE=  0.0752 p=  0.4812
+logGDP     beta=  -1.2034 SE=  0.0667 p= <0.0001 | HC3 SE=  0.0611 p= <0.0001
+n=166 dof=163 R2=0.7312 adjR2=0.7279
+Intercept  beta=1103.0877 SE= 79.4258 p= <0.0001 | HC3 SE= 98.5944 p= <0.0001
+regime     beta=  -3.4874 SE= 10.6188 p=  0.7430 | HC3 SE=  9.2455 p=  0.7065
+logGDP     beta=-102.3363 SE=  8.9467 p= <0.0001 | HC3 SE= 10.1582 p= <0.0001
+n=166 dof=163 R2=0.5204 adjR2=0.5145
+Intercept  beta= -39.6847 SE= 12.5798 p=  0.0020 | HC3 SE= 12.8337 p=  0.0024
+regime     beta=   4.8273 SE=  1.6771 p=  0.0047 | HC3 SE=  1.9817 p=  0.0162
+logGDP     beta=   8.8203 SE=  1.4418 p= <0.0001 | HC3 SE=  1.5844 p= <0.0001
+n=138 dof=135 R2=0.3726 adjR2=0.3633
+Intercept  beta= -38.7603 SE= 13.2015 p=  0.0039 | HC3 SE= 13.5153 p=  0.0048
+regime     beta=   4.8005 SE=  1.6868 p=  0.0051 | HC3 SE=  2.0299 p=  0.0195
+logGDP     beta=   8.7226 SE=  1.5033 p= <0.0001 | HC3 SE=  1.6313 p= <0.0001
+cpr_year_c beta=  -0.1016 SE=  0.4244 p=  0.8112 | HC3 SE=  0.4685 p=  0.8287
+n=138 dof=134 R2=0.3729 adjR2=0.3588
+Intercept  beta= -44.2843 SE= 14.4973 p=  0.0029 | HC3 SE= 15.1861 p=  0.0043
+regime     beta=   3.2653 SE=  2.0153 p=  0.1081 | HC3 SE=  2.3616 p=  0.1697
+logGDP     beta=   9.5488 SE=  1.6978 p= <0.0001 | HC3 SE=  1.8924 p= <0.0001
+n=109 dof=106 R2=0.3420 adjR2=0.3296
+Intercept  beta=  15.0563 SE=  0.6660 p= <0.0001 | HC3 SE=  0.6222 p= <0.0001
+regime_1   beta=   0.1026 SE=  0.2095 p=  0.6252 | HC3 SE=  0.2135 p=  0.6317
+regime_2   beta=  -0.0455 SE=  0.2092 p=  0.8279 | HC3 SE=  0.2035 p=  0.8232
+regime_3   beta=  -0.1190 SE=  0.2572 p=  0.6442 | HC3 SE=  0.2409 p=  0.6219
+logGDP     beta=  -1.1911 SE=  0.0706 p= <0.0001 | HC3 SE=  0.0670 p= <0.0001
+n=166 dof=161 R2=0.7322 adjR2=0.7256
+Intercept  beta= -40.9125 SE= 14.4356 p=  0.0053 | HC3 SE= 14.7288 p=  0.0063
+regime_1   beta=   3.3902 SE=  4.1949 p=  0.4204 | HC3 SE=  4.9425 p=  0.4939
+regime_2   beta=  10.6131 SE=  4.2546 p=  0.0138 | HC3 SE=  5.1247 p=  0.0403
+regime_3   beta=  12.4774 SE=  5.6393 p=  0.0286 | HC3 SE=  6.3825 p=  0.0527
+logGDP     beta=   9.0048 SE=  1.5596 p= <0.0001 | HC3 SE=  1.6966 p= <0.0001
+n=138 dof=133 R2=0.3757 adjR2=0.3570

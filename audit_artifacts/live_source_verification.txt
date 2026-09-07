@@ -1,0 +1,50 @@
+MMR 200 https://api.worldbank.org/v2/country/all/indicator/SH.STA.MMRT?format=json&per_page=20000 application/json;charset=utf-8 4331482 d19e18021c680f5f910b13c9d9f93d4219824cc5b0f44350e1b69e8840b07c73
+GDP 200 https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.KD?format=json&per_page=20000 application/json;charset=utf-8 4256871 c610e48829239b4b7fbdae26883093fa70f0c2e4cff6845d314beec722c7f6a5
+CPR 200 https://api.worldbank.org/v2/country/all/indicator/SP.DYN.CONU.ZS?format=json&per_page=20000 application/json;charset=utf-8 4402560 260237f909d0f09b84eae91b3746403ffaec82199b23c02a0669e9ff28cc76e5
+OWID_HTML 200 https://archive.ourworldindata.org/20260805-143540/grapher/political-regime.html text/html; charset=utf-8 52278 9e52bab45e685eb6032d855536ac1c62db4262aa8d5e34900b6cfa8eb9e953db
+OWID_DATA 404 https://archive.ourworldindata.org/20260805-143540/grapher/political-regime.json text/html 27150 62c1c0b235e26952857139537b65f8272026cd1c385c1bf6dba20481ee8a6619
+OWID_CSV 404 https://archive.ourworldindata.org/20260805-143540/grapher/political-regime.csv text/html 27150 62c1c0b235e26952857139537b65f8272026cd1c385c1bf6dba20481ee8a6619
+
+API MMR meta {'page': 1, 'pages': 1, 'per_page': 20000, 'total': 17490, 'sourceid': '2', 'lastupdated': '2026-07-13'}
+SUMMARY MMR {'MATCH': 167}
+Empty DataFrame
+Columns: [iso, country, MMR, MMRyear, live_value, live_year, status, diff]
+Index: []
+
+API GDP meta {'page': 1, 'pages': 1, 'per_page': 20000, 'total': 17490, 'sourceid': '2', 'lastupdated': '2026-07-13'}
+SUMMARY GDP {'MATCH': 167}
+Empty DataFrame
+Columns: [iso, country, GDP, GDPyear, live_value, live_year, status, diff]
+Index: []
+
+API CPR meta {'page': 1, 'pages': 1, 'per_page': 20000, 'total': 17490, 'sourceid': '2', 'lastupdated': '2026-07-13'}
+SUMMARY CPR {'MATCH': 139, 'MISSING_IN_LIVE': 28}
+iso              country  CPR  CPRyear  live_value  live_year          status  diff
+BHR              Bahrain  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+BGR             Bulgaria  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+CAN               Canada  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+HRV              Croatia  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+CYP               Cyprus  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+CZE              Czechia  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+DNK              Denmark  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+GRC               Greece  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+HUN              Hungary  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+ISL              Iceland  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+ISR               Israel  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+KWT               Kuwait  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+LVA               Latvia  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+LBN              Lebanon  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+LTU            Lithuania  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+LUX           Luxembourg  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+MLT                Malta  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+NZL          New Zealand  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+NOR               Norway  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+ROU              Romania  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+SYC           Seychelles  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+SGP            Singapore  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+SVK      Slovak Republic  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+SVN             Slovenia  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+SWE               Sweden  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+SYR Syrian Arab Republic  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+ARE United Arab Emirates  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN
+URY              Uruguay  NaN      NaN         NaN        NaN MISSING_IN_LIVE   NaN

@@ -1,0 +1,9 @@
+checks 495 fail 3
+FAIL ('相关系数', 'D9', 0.5752048369746255, np.float64(-0.7159911511030221), False)
+FAIL ('相关系数', 'D10', 0.4886844960162175, np.float64(0.5752048369746253), False)
+FAIL ('相关系数', 'D11', 0.4457185935277502, np.float64(0.4886844960162178), False)
+doc_paras 64 tables 2 shapes 2
+placeholder [Lastname] True
+placeholder [Institution Name] True
+placeholder [student email] True
+pycountry unavailable

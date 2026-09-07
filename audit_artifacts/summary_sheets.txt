@@ -1,0 +1,346 @@
+
+### data_only False
+
+-- 说明
+A1=FemTech 与生殖健康：跨国分析数据底稿（附件二）
+A2=两条证据链并列呈现：跨国模型检验政治体制类型与生殖健康结果的生态关联；隐私证据独立综述应用审计与执法案例。两者不合并，也不在国家层面相互连接。
+A4=项目 | B4=说明
+A5=论文定位 | B5=跨国部分仅检验政治体制类型与生殖健康结果的生态关联；隐私部分独立综述应用审计与执法证据。
+A6=分析总体 | B6=167国分析总体。2023年OWID存档政治体制序列无统一PSE观测值，因此含政治体制的模型 n=166，CPR 模型 n=138。
+A7=主要规格 | B7=log(MMR) ~ 政治体制有序趋势 + logGDP；CPR ~ 政治体制有序趋势 + logGDP。HC3为主要推断，经典OLS并列。
+A8=有序假设 | B8=政治体制0/1/2/3被视为等距线性趋势；三个虚拟变量模型作为放松等距假设的敏感性分析。
+A9=CPR规则 | B9=主样本采用2010–2023年最新非缺失值并逐国保留年份；另做2015–2023限制样本与加入观测年份的敏感性分析。
+A10=缺失风险 | B10=CPR缺失可能非随机，且在自由民主组集中。HC3只处理异方差，不处理选择性缺失。
+A11=数据与版本 | B11=政治体制锁定OWID 2026-08-05官方存档（V-Dem v16）；WDI JSON快照保留SHA-256。
+A12=推论边界 | B12=本工作簿中的国别模型只描述政治体制类型与生殖健康结果之间的生态关联。模型未检验隐私法效应，也未建立 FemTech 采用或隐私事件与政治体制之间的国家层面联系。
+
+-- 数据源
+A1=数据源登记表
+A2=完整URL、版本、日期、口径、原始文件名与SHA-256均为可追溯的审计字段。
+A4=数据集 | B4=来源机构 | C4=版本/存档 | D4=下载日期 | E4=完整URL | F4=查询范围 | G4=单位 | H4=观测年份规则 | I4=原始文件名 | J4=SHA-256
+A5=Maternal mortality ratio | B5=World Bank, World Development Indicators | C5=API snapshot; last updated 2026-07-13 | D5=2026-09-03 | E5=https://api.worldbank.org/v2/country/all/indicator/SH.STA.MMRT?format=json&per_page=20000 | F5=All economies; latest non-missing observation in 2010-2023 for the retained 167-country analytic sample | G5=Maternal deaths per 100,000 live births | H5=Latest non-missing value, 2010-2023 | I5=mmr.json | J5=d19e18021c680f5f910b13c9d9f93d4219824cc5b0f44350e1b69e8840b07c73
+A6=GDP per capita, PPP | B6=World Bank, World Development Indicators | C6=API snapshot; last updated 2026-07-13 | D6=2026-09-03 | E6=https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.KD?format=json&per_page=20000 | F6=All economies; latest non-missing observation in 2010-2023 for the retained 167-country analytic sample | G6=Constant 2021 international dollars per person | H6=Latest non-missing value, 2010-2023; log generated as LN(raw GDP) | I6=gdp.json | J6=c610e48829239b4b7fbdae26883093fa70f0c2e4cff6845d314beec722c7f6a5
+A7=Contraceptive prevalence, any method | B7=World Bank, World Development Indicators | C7=API snapshot; last updated 2026-07-13 | D7=2026-09-03 | E7=https://api.worldbank.org/v2/country/all/indicator/SP.DYN.CONU.ZS?format=json&per_page=20000 | F7=All economies; latest non-missing observation in 2010-2023 for the retained 167-country analytic sample | G7=% of married women ages 15-49 | H7=Latest non-missing value, 2010-2023; missing retained and flagged | I7=cpr.json | J7=260237f909d0f09b84eae91b3746403ffaec82199b23c02a0669e9ff28cc76e5
+A8=Political regime (Regimes of the World) | B8=V-Dem v16, processed by Our World in Data | C8=OWID archive 2026-08-05 14:35 UTC; source last updated 2026-03-17 | D8=2026-09-03 | E8=https://archive.ourworldindata.org/20260805-143540/grapher/political-regime.html | F8=2023 classification for the retained 167-country analytic sample | G8=0 closed autocracy; 1 electoral autocracy; 2 electoral democracy; 3 liberal democracy | H8=Fixed at 2023 | I8=1210053.data.json + 1210053.metadata.json | J8=03b99952aae74eb78cdfaf600be6178eff422356e412447ad43d7f103e5bf1fd / 5b86ddda5ba7f246d1983e12e37e8628258d46eae179e88beed0d9cad822c24d
+A10=注：表中 SHA-256 为按上述 URL 于「下载日期」抓取的原始文件（WDI 三个 JSON 与 OWID 政治体制数据文件）校验值。重新抓取时若源端已更新，校验值可能不同；验证需使用同日抓取的原始文件。
+
+-- 描述统计
+A1=描述统计
+A2=所有指标直接引用“跨国底稿”；四分位数采用QUARTILE.INC，SD为样本标准差。
+A4=变量 | B4=n | C4=均值 | D4=SD | E4=中位数 | F4=IQR | G4=最小值 | H4=最大值 | I4=数据列
+A5=MMR per 100,000 live births | B5==COUNT('跨国底稿'!$C$5:$C$171) | C5==AVERAGE('跨国底稿'!$C$5:$C$171) | D5==STDEV.S('跨国底稿'!$C$5:$C$171) | E5==MEDIAN('跨国底稿'!$C$5:$C$171) | F5==QUARTILE.INC('跨国底稿'!$C$5:$C$171,3)-QUARTILE.INC('跨国底稿'!$C$5:$C$171,1) | G5==MIN('跨国底稿'!$C$5:$C$171) | H5==MAX('跨国底稿'!$C$5:$C$171) | I5=mmr
+A6=log(MMR) | B6==COUNT('跨国底稿'!$N$5:$N$171) | C6==AVERAGE('跨国底稿'!$N$5:$N$171) | D6==STDEV.S('跨国底稿'!$N$5:$N$171) | E6==MEDIAN('跨国底稿'!$N$5:$N$171) | F6==QUARTILE.INC('跨国底稿'!$N$5:$N$171,3)-QUARTILE.INC('跨国底稿'!$N$5:$N$171,1) | G6==MIN('跨国底稿'!$N$5:$N$171) | H6==MAX('跨国底稿'!$N$5:$N$171) | I6=log_mmr
+A7=GDP per capita, PPP, constant 2021 intl $ | B7==COUNT('跨国底稿'!$E$5:$E$171) | C7==AVERAGE('跨国底稿'!$E$5:$E$171) | D7==STDEV.S('跨国底稿'!$E$5:$E$171) | E7==MEDIAN('跨国底稿'!$E$5:$E$171) | F7==QUARTILE.INC('跨国底稿'!$E$5:$E$171,3)-QUARTILE.INC('跨国底稿'!$E$5:$E$171,1) | G7==MIN('跨国底稿'!$E$5:$E$171) | H7==MAX('跨国底稿'!$E$5:$E$171) | I7=gdp_ppp_constant_2021
+A8=log(GDP per capita) | B8==COUNT('跨国底稿'!$G$5:$G$171) | C8==AVERAGE('跨国底稿'!$G$5:$G$171) | D8==STDEV.S('跨国底稿'!$G$5:$G$171) | E8==MEDIAN('跨国底稿'!$G$5:$G$171) | F8==QUARTILE.INC('跨国底稿'!$G$5:$G$171,3)-QUARTILE.INC('跨国底稿'!$G$5:$G$171,1) | G8==MIN('跨国底稿'!$G$5:$G$171) | H8==MAX('跨国底稿'!$G$5:$G$171) | I8=log_gdp
+A9=Political regime code (0-3) | B9==COUNT('跨国底稿'!$H$5:$H$171) | C9==AVERAGE('跨国底稿'!$H$5:$H$171) | D9==STDEV.S('跨国底稿'!$H$5:$H$171) | E9==MEDIAN('跨国底稿'!$H$5:$H$171) | F9==QUARTILE.INC('跨国底稿'!$H$5:$H$171,3)-QUARTILE.INC('跨国底稿'!$H$5:$H$171,1) | G9==MIN('跨国底稿'!$H$5:$H$171) | H9==MAX('跨国底稿'!$H$5:$H$171) | I9=regime_code
+A10=Contraceptive prevalence, any method (%) | B10==COUNT('跨国底稿'!$K$5:$K$171) | C10==AVERAGE('跨国底稿'!$K$5:$K$171) | D10==STDEV.S('跨国底稿'!$K$5:$K$171) | E10==MEDIAN('跨国底稿'!$K$5:$K$171) | F10==QUARTILE.INC('跨国底稿'!$K$5:$K$171,3)-QUARTILE.INC('跨国底稿'!$K$5:$K$171,1) | G10==MIN('跨国底稿'!$K$5:$K$171) | H10==MAX('跨国底稿'!$K$5:$K$171) | I10=cpr
+A11=CPR observation year | B11==COUNT('跨国底稿'!$L$5:$L$171) | C11==AVERAGE('跨国底稿'!$L$5:$L$171) | D11==STDEV.S('跨国底稿'!$L$5:$L$171) | E11==MEDIAN('跨国底稿'!$L$5:$L$171) | F11==QUARTILE.INC('跨国底稿'!$L$5:$L$171,3)-QUARTILE.INC('跨国底稿'!$L$5:$L$171,1) | G11==MIN('跨国底稿'!$L$5:$L$171) | H11==MAX('跨国底稿'!$L$5:$L$171) | I11=cpr_year
+
+-- 缺失分析
+A1=CPR缺失分析
+A2=按政治体制类别统计；PSE因统一政治体制缺失，不纳入分组率。自由民主组缺失集中是主要选择偏倚风险。
+A4=政治体制代码 | B4=政治体制类别 | C4=总数 | D4=CPR观测数 | E4=CPR缺失数 | F4=缺失率
+A5=0 | B5=Closed autocracy | C5==COUNTIF('跨国底稿'!$H$5:$H$171,A5) | D5==COUNTIFS('跨国底稿'!$H$5:$H$171,A5,'跨国底稿'!$M$5:$M$171,"Observed") | E5==COUNTIFS('跨国底稿'!$H$5:$H$171,A5,'跨国底稿'!$M$5:$M$171,"Missing") | F5==IFERROR(E5/C5,"")
+A6=1 | B6=Electoral autocracy | C6==COUNTIF('跨国底稿'!$H$5:$H$171,A6) | D6==COUNTIFS('跨国底稿'!$H$5:$H$171,A6,'跨国底稿'!$M$5:$M$171,"Observed") | E6==COUNTIFS('跨国底稿'!$H$5:$H$171,A6,'跨国底稿'!$M$5:$M$171,"Missing") | F6==IFERROR(E6/C6,"")
+A7=2 | B7=Electoral democracy | C7==COUNTIF('跨国底稿'!$H$5:$H$171,A7) | D7==COUNTIFS('跨国底稿'!$H$5:$H$171,A7,'跨国底稿'!$M$5:$M$171,"Observed") | E7==COUNTIFS('跨国底稿'!$H$5:$H$171,A7,'跨国底稿'!$M$5:$M$171,"Missing") | F7==IFERROR(E7/C7,"")
+A8=3 | B8=Liberal democracy | C8==COUNTIF('跨国底稿'!$H$5:$H$171,A8) | D8==COUNTIFS('跨国底稿'!$H$5:$H$171,A8,'跨国底稿'!$M$5:$M$171,"Observed") | E8==COUNTIFS('跨国底稿'!$H$5:$H$171,A8,'跨国底稿'!$M$5:$M$171,"Missing") | F8==IFERROR(E8/C8,"")
+A11=CPR缺失国家清单
+A12=ISO3 | B12=国家 | C12=政治体制代码 | D12=政治体制类别 | E12=风险说明
+A13=BHR | B13=Bahrain | C13=0 | D13=Closed autocracy | E13=缺失可能非随机
+A14=BGR | B14=Bulgaria | C14=2 | D14=Electoral democracy | E14=缺失可能非随机
+A15=CAN | B15=Canada | C15=2 | D15=Electoral democracy | E15=缺失可能非随机
+A16=HRV | B16=Croatia | C16=2 | D16=Electoral democracy | E16=缺失可能非随机
+A17=CYP | B17=Cyprus | C17=3 | D17=Liberal democracy | E17=自由民主组集中缺失；可能影响CPR推断
+A18=CZE | B18=Czechia | C18=3 | D18=Liberal democracy | E18=自由民主组集中缺失；可能影响CPR推断
+A19=DNK | B19=Denmark | C19=3 | D19=Liberal democracy | E19=自由民主组集中缺失；可能影响CPR推断
+A20=GRC | B20=Greece | C20=2 | D20=Electoral democracy | E20=缺失可能非随机
+A21=HUN | B21=Hungary | C21=1 | D21=Electoral autocracy | E21=缺失可能非随机
+A22=ISL | B22=Iceland | C22=3 | D22=Liberal democracy | E22=自由民主组集中缺失；可能影响CPR推断
+A23=ISR | B23=Israel | C23=2 | D23=Electoral democracy | E23=缺失可能非随机
+A24=KWT | B24=Kuwait | C24=1 | D24=Electoral autocracy | E24=缺失可能非随机
+A25=LVA | B25=Latvia | C25=3 | D25=Liberal democracy | E25=自由民主组集中缺失；可能影响CPR推断
+A26=LBN | B26=Lebanon | C26=1 | D26=Electoral autocracy | E26=缺失可能非随机
+A27=LTU | B27=Lithuania | C27=2 | D27=Electoral democracy | E27=缺失可能非随机
+A28=LUX | B28=Luxembourg | C28=3 | D28=Liberal democracy | E28=自由民主组集中缺失；可能影响CPR推断
+A29=MLT | B29=Malta | C29=2 | D29=Electoral democracy | E29=缺失可能非随机
+A30=NZL | B30=New Zealand | C30=3 | D30=Liberal democracy | E30=自由民主组集中缺失；可能影响CPR推断
+A31=NOR | B31=Norway | C31=3 | D31=Liberal democracy | E31=自由民主组集中缺失；可能影响CPR推断
+A32=ROU | B32=Romania | C32=2 | D32=Electoral democracy | E32=缺失可能非随机
+A33=SYC | B33=Seychelles | C33=3 | D33=Liberal democracy | E33=自由民主组集中缺失；可能影响CPR推断
+A34=SGP | B34=Singapore | C34=1 | D34=Electoral autocracy | E34=缺失可能非随机
+A35=SVK | B35=Slovak Republic | C35=2 | D35=Electoral democracy | E35=缺失可能非随机
+A36=SVN | B36=Slovenia | C36=2 | D36=Electoral democracy | E36=缺失可能非随机
+A37=SWE | B37=Sweden | C37=3 | D37=Liberal democracy | E37=自由民主组集中缺失；可能影响CPR推断
+A38=SYR | B38=Syrian Arab Republic | C38=0 | D38=Closed autocracy | E38=缺失可能非随机
+A39=ARE | B39=United Arab Emirates | C39=0 | D39=Closed autocracy | E39=缺失可能非随机
+A40=URY | B40=Uruguay | C40=3 | D40=Liberal democracy | E40=自由民主组集中缺失；可能影响CPR推断
+
+-- 相关系数
+A1=双变量相关系数
+A2=Pearson r；每一行都显示自己的有效样本量，不将MMR与CPR统一标为n=167。
+A4=变量X | B4=变量Y | C4=n | D4=Pearson r | E4=解释
+A5=政治体制代码 | B5=log(MMR) | C5=166 | D5==CORREL('跨国底稿'!$H$5:$H$171,'跨国底稿'!$N$5:$N$171) | E5=双变量梯度；不作因果解释
+A6=政治体制代码 | B6=MMR | C6=166 | D6==CORREL('跨国底稿'!$H$5:$H$171,'跨国底稿'!$C$5:$C$171) | E6=双变量梯度；不作因果解释
+A7=政治体制代码 | B7=CPR | C7=138 | D7==CORREL('跨国底稿'!$H$5:$H$171,'跨国底稿'!$K$5:$K$171) | E7=双变量正向梯度；CPR缺失需注意
+A8=logGDP | B8=log(MMR) | C8=167 | D8==CORREL('跨国底稿'!$G$5:$G$171,'跨国底稿'!$N$5:$N$171) | E8=背景相关
+A9=logGDP | B9=MMR | C9=167 | D9==CORREL('跨国底稿'!$G$5:$G$171,'跨国底稿'!$C$5:$C$171) | E9=背景相关
+A10=logGDP | B10=CPR | C10=139 | D10==CORREL('跨国底稿'!$G$5:$G$171,'跨国底稿'!$K$5:$K$171) | E10=背景相关
+A11=政治体制代码 | B11=logGDP | C11=166 | D11==CORREL('跨国底稿'!$H$5:$H$171,'跨国底稿'!$G$5:$G$171) | E11=收入可能混杂体制与健康关联
+
+-- 模型结果
+A1=主要模型结果
+A2=HC3为主要推断；经典OLS并列。β是政治体制每提高一个类别的变化，前提是0–3等距趋势成立。
+A4=模型 | B4=政治体制项 | C4=n | D4=df | E4=β | F4=经典SE | G4=经典p | H4=HC3 SE | I4=HC3 p | J4=HC3 95%CI下限 | K4=HC3 95%CI上限 | L4=R² | M4=调整R²
+A5=M1 Primary: log(MMR), ordinal regime | B5=regime_code | C5=166 | D5=163 | E5=-0.05307168635970483 | F5=0.07920164047038734 | G5=0.5037529732829312 | H5=0.07518112726812286 | I5=0.4812470390486583 | J5=-0.2015261912948643 | K5=0.09538281857545461 | L5=0.7311693238986037 | M5=0.7278707879955191
+A6=M3 Primary: CPR 2010-2023 latest | B6=regime_code | C6=138 | D6=135 | E6=4.827299112462815 | F6=1.677145235703393 | G6=0.00465021353475013 | H6=1.9817132798377 | I6=0.01615778216759345 | J6=0.908080063257922 | K6=8.746518161667709 | L6=0.3726022737484496 | M6=0.3633074926187969
+A8=完整参数表（包括截距和logGDP）
+A9=模型 | B9=模型项 | C9=n | D9=df | E9=β | F9=经典SE | G9=经典p | H9=HC3 SE | I9=HC3 p | J9=HC3 95%CI下限 | K9=HC3 95%CI上限 | L9=R² | M9=调整R²
+A10=M1 Primary: log(MMR), ordinal regime | B10=Intercept | C10=166 | D10=163 | E10=15.25002011227093 | F10=0.592408105544815 | G10=2.604644648227683e-59 | H10=0.5285871637468168 | I10=6.189430474074346e-66 | J10=14.20625888441307 | K10=16.29378134012878 | L10=0.7311693238986037 | M10=0.7278707879955191
+A11=M1 Primary: log(MMR), ordinal regime | B11=regime_code | C11=166 | D11=163 | E11=-0.05307168635970483 | F11=0.07920164047038734 | G11=0.5037529732829312 | H11=0.07518112726812286 | I11=0.4812470390486583 | J11=-0.2015261912948643 | K11=0.09538281857545461 | L11=0.7311693238986037 | M11=0.7278707879955191
+A12=M1 Primary: log(MMR), ordinal regime | B12=log_gdp | C12=166 | D12=163 | E12=-1.203359260253577 | F12=0.0667300756369925 | G12=1.134586291950652e-40 | H12=0.06114314994949469 | I12=6.339479050637904e-45 | J12=-1.324094029546896 | K12=-1.082624490960258 | L12=0.7311693238986037 | M12=0.7278707879955191
+A13=M3 Primary: CPR 2010-2023 latest | B13=Intercept | C13=138 | D13=135 | E13=-39.68471042393156 | F13=12.57975668124696 | G13=0.001981281589334687 | H13=12.83374750228946 | I13=0.002414339244272584 | J13=-65.06591374703687 | K13=-14.30350710082626 | L13=0.3726022737484496 | M13=0.3633074926187969
+A14=M3 Primary: CPR 2010-2023 latest | B14=regime_code | C14=138 | D14=135 | E14=4.827299112462815 | F14=1.677145235703393 | G14=0.00465021353475013 | H14=1.9817132798377 | I14=0.01615778216759345 | J14=0.908080063257922 | K14=8.746518161667709 | L14=0.3726022737484496 | M14=0.3633074926187969
+A15=M3 Primary: CPR 2010-2023 latest | B15=log_gdp | C15=138 | D15=135 | E15=8.820276715945392 | F15=1.44175195040604 | G15=9.629503374636667e-09 | H15=1.584436436628153 | I15=1.347784295869305e-07 | J15=5.686749011475474 | K15=11.95380442041531 | L15=0.3726022737484496 | M15=0.3633074926187969
+
+-- 稳健性分析
+A1=稳健性分析
+A2=本表报告全部设定的敏感性规格，用于比较估计方向、大小和不确定性。
+A4=模型 | B4=政治体制项 | C4=n | D4=df | E4=β | F4=经典SE | G4=经典p | H4=HC3 SE | I4=HC3 p | J4=HC3 95%CI下限 | K4=HC3 95%CI上限 | L4=R² | M4=调整R²
+A5=M2 Sensitivity: raw MMR, ordinal regime | B5=regime_code | C5=166 | D5=163 | E5=-3.487377809125705 | F5=10.61878206638417 | G5=0.7430186723191619 | H5=9.245487845639168 | I5=0.7065172434197138 | J5=-21.74374574191084 | K5=14.76899012365943 | L5=0.5203797240194991 | M5=0.5144948126577751
+A6=M3 Primary: CPR 2010-2023 latest | B6=regime_code | C6=138 | D6=135 | E6=4.827299112462815 | F6=1.677145235703393 | G6=0.00465021353475013 | H6=1.9817132798377 | I6=0.01615778216759345 | J6=0.908080063257922 | K6=8.746518161667709 | L6=0.3726022737484496 | M6=0.3633074926187969
+A7=M4 CPR + observation year | B7=regime_code | C7=138 | D7=134 | E7=4.800465422538489 | F7=1.686762133407764 | G7=0.005124351403905187 | H7=2.029920076102907 | I7=0.01947173150128501 | J7=0.7856372091986383 | K7=8.815293635878339 | L7=0.3728703606087355 | M7=0.3588301448014684
+A8=M5 CPR restricted to 2015-2023 | B8=regime_code | C8=109 | D8=106 | E8=3.265264592786442 | F8=2.015267222240224 | G8=0.1081468866726037 | H8=2.361611343159751 | I8=0.1696804824745745 | J8=-1.416859589386042 | K8=7.947388774958926 | L8=0.3420399823357394 | M8=0.32962564237981
+A9=M6 log(MMR), regime categorical | B9=regime_1 | C9=166 | D9=161 | E9=0.1025613393220575 | F9=0.2095317915793333 | G9=0.6251690928932836 | H9=0.2135355712501113 | I9=0.6316653519575984 | J9=-0.3191304346580481 | K9=0.5242531133021633 | L9=0.7322444819726752 | M9=0.7255921709657851
+A10=M6 log(MMR), regime categorical | B10=regime_2 | C10=166 | D10=161 | E10=-0.04554515388920801 | F10=0.2091757792471332 | G10=0.8279103139392886 | H10=0.2035232822629966 | I10=0.8232094756905551 | J10=-0.4474645785606705 | K10=0.3563742707822545 | L10=0.7322444819726752 | M10=0.7255921709657851
+A11=M6 log(MMR), regime categorical | B11=regime_3 | C11=166 | D11=161 | E11=-0.1190141623358396 | F11=0.2572468426227731 | G11=0.6442429703785975 | H11=0.2408543443488522 | I11=0.6218855143669763 | J11=-0.5946552704878838 | K11=0.3566269458162046 | L11=0.7322444819726752 | M11=0.7255921709657851
+A12=M7 CPR, regime categorical | B12=regime_1 | C12=138 | D12=133 | E12=3.390242900670279 | F12=4.194920773895519 | G12=0.4204312786389947 | H12=4.942513645416465 | I12=0.4939481018220622 | J12=-6.385857637496304 | K12=13.16634343883686 | L12=0.3757463366090794 | M12=0.3569717903416834
+A13=M7 CPR, regime categorical | B13=regime_2 | C13=138 | D13=133 | E13=10.61306105515148 | F13=4.254607365632218 | G13=0.01383906559084393 | H13=5.124688630907388 | I13=0.04029533532894945 | J13=0.4766254523867666 | K13=20.7494966579162 | L13=0.3757463366090794 | M13=0.3569717903416834
+A14=M7 CPR, regime categorical | B14=regime_3 | C14=138 | D14=133 | E14=12.47739202872073 | F14=5.6393267458602 | G14=0.02863329520569749 | H14=6.382512244404956 | I14=0.05268812120318175 | J14=-0.1469699586753546 | K14=25.10175401611682 | L14=0.3757463366090794 | M14=0.3569717903416834
+
+-- 模型输出与HC3结果
+A1=OLS与HC3完整计算记录
+A2=根据逐国底稿在外部统计程序中计算；p 值与 95% 置信区间均使用有限自由度 t 分布。下方给出计算公式与完整输出。
+A4=模型 | B4=因变量 | C4=预测变量 | D4=项 | E4=n | F4=k | G4=df | H4=β | I4=经典SE | J4=经典t | K4=经典p | L4=经典CI下 | M4=经典CI上 | N4=HC3 SE | O4=HC3 t | P4=HC3 p | Q4=HC3 CI下 | R4=HC3 CI上 | S4=R² | T4=调整R²
+A5=M1 Primary: log(MMR), ordinal regime | B5=log_mmr | C5=regime_code + log_gdp | D5=Intercept | E5=166 | F5=3 | G5=163 | H5=15.25002011227093 | I5=0.592408105544815 | J5=25.74242311935632 | K5=2.604644648227683e-59 | L5=14.08023648140589 | M5=16.41980374313596 | N5=0.5285871637468168 | O5=28.85053054291609 | P5=6.189430474074346e-66 | Q5=14.20625888441307 | R5=16.29378134012878 | S5=0.7311693238986037 | T5=0.7278707879955191
+A6=M1 Primary: log(MMR), ordinal regime | B6=log_mmr | C6=regime_code + log_gdp | D6=regime_code | E6=166 | F6=3 | G6=163 | H6=-0.05307168635970483 | I6=0.07920164047038734 | J6=-0.6700831705568999 | K6=0.5037529732829312 | L6=-0.2094651956529503 | M6=0.1033218229335406 | N6=0.07518112726812286 | O6=-0.7059176722694269 | P6=0.4812470390486583 | Q6=-0.2015261912948643 | R6=0.09538281857545461 | S6=0.7311693238986037 | T6=0.7278707879955191
+A7=M1 Primary: log(MMR), ordinal regime | B7=log_mmr | C7=regime_code + log_gdp | D7=log_gdp | E7=166 | F7=3 | G7=163 | H7=-1.203359260253577 | I7=0.0667300756369925 | J7=-18.033236869081 | K7=1.134586291950652e-40 | L7=-1.335126110564903 | M7=-1.071592409942252 | N7=0.06114314994949469 | O7=-19.68101514638309 | P7=6.339479050637904e-45 | Q7=-1.324094029546896 | R7=-1.082624490960258 | S7=0.7311693238986037 | T7=0.7278707879955191
+A8=M2 Sensitivity: raw MMR, ordinal regime | B8=mmr | C8=regime_code + log_gdp | D8=Intercept | E8=166 | F8=3 | G8=163 | H8=1103.087720548699 | I8=79.42578625618133 | J8=13.88828203715579 | K8=1.939106379107027e-29 | L8=946.2516074681399 | M8=1259.923833629257 | N8=98.59443328065854 | O8=11.18813389198813 | P8=6.371903403250571e-22 | Q8=908.4007251031164 | R8=1297.774715994281 | S8=0.5203797240194991 | T8=0.5144948126577751
+A9=M2 Sensitivity: raw MMR, ordinal regime | B9=mmr | C9=regime_code + log_gdp | D9=regime_code | E9=166 | F9=3 | G9=163 | H9=-3.487377809125705 | I9=10.61878206638417 | J9=-0.3284159885120611 | K9=0.7430186723191619 | L9=-24.45548632201595 | M9=17.48073070376454 | N9=9.245487845639168 | O9=-0.3771978144745062 | P9=0.7065172434197138 | Q9=-21.74374574191084 | R9=14.76899012365943 | S9=0.5203797240194991 | T9=0.5144948126577751
+A10=M2 Sensitivity: raw MMR, ordinal regime | B10=mmr | C10=regime_code + log_gdp | D10=log_gdp | E10=166 | F10=3 | G10=163 | H10=-102.3362546708231 | I10=8.946685021347388 | J10=-11.43845507320778 | K10=1.288567573228617e-22 | L10=-120.0025991899493 | M10=-84.66991015169691 | N10=10.15821036172587 | O10=-10.07424054303954 | P10=7.344032129250555e-19 | Q10=-122.3949069559776 | R10=-82.27760238566864 | S10=0.5203797240194991 | T10=0.5144948126577751
+A11=M3 Primary: CPR 2010-2023 latest | B11=cpr | C11=regime_code + log_gdp | D11=Intercept | E11=138 | F11=3 | G11=135 | H11=-39.68471042393156 | I11=12.57975668124696 | J11=-3.154648490387004 | K11=0.001981281589334687 | L11=-64.56359806177565 | M11=-14.80582278608747 | N11=12.83374750228946 | O11=-3.092215303195896 | P11=0.002414339244272584 | Q11=-65.06591374703687 | R11=-14.30350710082626 | S11=0.3726022737484496 | T11=0.3633074926187969
+A12=M3 Primary: CPR 2010-2023 latest | B12=cpr | C12=regime_code + log_gdp | D12=regime_code | E12=138 | F12=3 | G12=135 | H12=4.827299112462815 | I12=1.677145235703393 | J12=2.878283293359654 | K12=0.00465021353475013 | L12=1.510421932031195 | M12=8.144176292894436 | N12=1.9817132798377 | O12=2.435922068836399 | P12=0.01615778216759345 | Q12=0.908080063257922 | R12=8.746518161667709 | S12=0.3726022737484496 | T12=0.3633074926187969
+A13=M3 Primary: CPR 2010-2023 latest | B13=cpr | C13=regime_code + log_gdp | D13=log_gdp | E13=138 | F13=3 | G13=135 | H13=8.820276715945392 | I13=1.44175195040604 | J13=6.117749113126805 | K13=9.629503374636667e-09 | L13=5.968935017956452 | M13=11.67161841393433 | N13=1.584436436628153 | O13=5.566822696097462 | P13=1.347784295869305e-07 | Q13=5.686749011475474 | R13=11.95380442041531 | S13=0.3726022737484496 | T13=0.3633074926187969
+A14=M4 CPR + observation year | B14=cpr | C14=regime_code + log_gdp + cpr_year_centered_2018 | D14=Intercept | E14=138 | F14=4 | G14=134 | H14=-38.76032599647121 | I14=13.20152079383328 | J14=-2.936050065881577 | K14=0.003913538101254051 | L14=-64.87063386821208 | M14=-12.65001812473034 | N14=13.51527026127204 | O14=-2.867891299779539 | P14=0.00480162325258804 | Q14=-65.49117564649322 | R14=-12.0294763464492 | S14=0.3728703606087355 | T14=0.3588301448014684
+A15=M4 CPR + observation year | B15=cpr | C15=regime_code + log_gdp + cpr_year_centered_2018 | D15=regime_code | E15=138 | F15=4 | G15=134 | H15=4.800465422538489 | I15=1.686762133407764 | J15=2.845964660612882 | K15=0.005124351403905187 | L15=1.464343827347418 | M15=8.13658701772956 | N15=2.029920076102907 | O15=2.36485439946707 | P15=0.01947173150128501 | Q15=0.7856372091986383 | R15=8.815293635878339 | S15=0.3728703606087355 | T15=0.3588301448014684
+A16=M4 CPR + observation year | B16=cpr | C16=regime_code + log_gdp + cpr_year_centered_2018 | D16=log_gdp | E16=138 | F16=4 | G16=134 | H16=8.722590334327881 | I16=1.503281299972129 | J16=5.802367351000505 | K16=4.489985580014114e-08 | L16=5.74936185761797 | M16=11.69581881103779 | N16=1.631349356780588 | O16=5.346856145848252 | P16=3.750510097372652e-07 | Q16=5.496065556076221 | R16=11.94911511257954 | S16=0.3728703606087355 | T16=0.3588301448014684
+A17=M4 CPR + observation year | B17=cpr | C17=regime_code + log_gdp + cpr_year_centered_2018 | D17=cpr_year_centered_2018 | E17=138 | F17=4 | G17=134 | H17=-0.10157059787539 | I17=0.424381563870891 | J17=-0.2393379131481091 | K17=0.8112092587315769 | L17=-0.9409233861492895 | M17=0.7377821903985095 | N17=0.468549837970239 | O17=-0.2167765083761303 | P17=0.8287122086295647 | Q17=-1.028280536352478 | R17=0.8251393406016982 | S17=0.3728703606087355 | T17=0.3588301448014684
+A18=M5 CPR restricted to 2015-2023 | B18=cpr | C18=regime_code + log_gdp | D18=Intercept | E18=109 | F18=3 | G18=106 | H18=-44.28433147638727 | I18=14.49732950259357 | J18=-3.054654408487081 | K18=0.002850062736294063 | L18=-73.0266972503411 | M18=-15.54196570243344 | N18=15.18608237352764 | O18=-2.916112950472577 | P18=0.004326153301650633 | Q18=-74.39221680625008 | R18=-14.17644614652446 | S18=0.3420399823357394 | T18=0.32962564237981
+A19=M5 CPR restricted to 2015-2023 | B19=cpr | C19=regime_code + log_gdp | D19=regime_code | E19=109 | F19=3 | G19=106 | H19=3.265264592786442 | I19=2.015267222240224 | J19=1.620263832384813 | K19=0.1081468866726037 | L19=-0.7301986836415293 | M19=7.260727869214413 | N19=2.361611343159751 | O19=1.3826426614371 | P19=0.1696804824745745 | Q19=-1.416859589386042 | R19=7.947388774958926 | S19=0.3420399823357394 | T19=0.32962564237981
+A20=M5 CPR restricted to 2015-2023 | B20=cpr | C20=regime_code + log_gdp | D20=log_gdp | E20=109 | F20=3 | G20=106 | H20=9.548833951877022 | I20=1.697776559448121 | J20=5.624317227574966 | K20=1.527214833172684e-07 | L20=6.182826794119258 | M20=12.91484110963479 | N20=1.892365996366135 | O20=5.045976291168525 | P20=1.879938483478784e-06 | Q20=5.797034309327857 | R20=13.30063359442619 | S20=0.3420399823357394 | T20=0.32962564237981
+A21=M6 log(MMR), regime categorical | B21=log_mmr | C21=regime_1 + regime_2 + regime_3 + log_gdp | D21=Intercept | E21=166 | F21=5 | G21=161 | H21=15.05633821835175 | I21=0.6660149288462934 | J21=22.60660769936965 | K21=7.937573630988333e-52 | L21=13.74108654764313 | M21=16.37158988906036 | N21=0.6221785001469085 | O21=24.199386855696 | P21=1.64165781038989e-55 | Q21=13.82765508175188 | R21=16.28502135495162 | S21=0.7322444819726752 | T21=0.7255921709657851
+A22=M6 log(MMR), regime categorical | B22=log_mmr | C22=regime_1 + regime_2 + regime_3 + log_gdp | D22=regime_1 | E22=166 | F22=5 | G22=161 | H22=0.1025613393220575 | I22=0.2095317915793333 | J22=0.4894786540458018 | K22=0.6251690928932836 | L22=-0.3112237381666317 | M22=0.5163464168107468 | N22=0.2135355712501113 | O22=0.4803009574546661 | P22=0.6316653519575984 | Q22=-0.3191304346580481 | R22=0.5242531133021633 | S22=0.7322444819726752 | T22=0.7255921709657851
+A23=M6 log(MMR), regime categorical | B23=log_mmr | C23=regime_1 + regime_2 + regime_3 + log_gdp | D23=regime_2 | E23=166 | F23=5 | G23=161 | H23=-0.04554515388920801 | I23=0.2091757792471332 | J23=-0.2177362697207794 | K23=0.8279103139392886 | L23=-0.4586271753435075 | M23=0.3675368675650915 | N23=0.2035232822629966 | O23=-0.223783507138774 | P23=0.8232094756905551 | Q23=-0.4474645785606705 | R23=0.3563742707822545 | S23=0.7322444819726752 | T23=0.7255921709657851
+A24=M6 log(MMR), regime categorical | B24=log_mmr | C24=regime_1 + regime_2 + regime_3 + log_gdp | D24=regime_3 | E24=166 | F24=5 | G24=161 | H24=-0.1190141623358396 | I24=0.2572468426227731 | J24=-0.4626457651430226 | K24=0.6442429703785975 | L24=-0.6270273087231383 | M24=0.3889989840514591 | N24=0.2408543443488522 | O24=-0.4941333429446474 | P24=0.6218855143669763 | Q24=-0.5946552704878838 | R24=0.3566269458162046 | S24=0.7322444819726752 | T24=0.7255921709657851
+A25=M6 log(MMR), regime categorical | B25=log_mmr | C25=regime_1 + regime_2 + regime_3 + log_gdp | D25=log_gdp | E25=166 | F25=5 | G25=161 | H25=-1.191059260993163 | I25=0.07057891447517314 | J25=-16.87556786399895 | K25=1.943408021082291e-37 | L25=-1.330439072405311 | M25=-1.051679449581014 | N25=0.06698449995010695 | O25=-17.78111745075826 | P25=7.985742912957891e-40 | Q25=-1.323340793516125 | R25=-1.0587777284702 | S25=0.7322444819726752 | T25=0.7255921709657851
+A26=M7 CPR, regime categorical | B26=cpr | C26=regime_1 + regime_2 + regime_3 + log_gdp | D26=Intercept | E26=138 | F26=5 | G26=133 | H26=-40.91246992030104 | I26=14.43564817290128 | J26=-2.834127669937418 | K26=0.005312237804165203 | L26=-69.46562282919751 | M26=-12.35931701140458 | N26=14.72884153952836 | O26=-2.777711323086929 | P26=0.006266026007361995 | Q26=-70.04554795129161 | R26=-11.77939188931047 | S26=0.3757463366090794 | T26=0.3569717903416834
+A27=M7 CPR, regime categorical | B27=cpr | C27=regime_1 + regime_2 + regime_3 + log_gdp | D27=regime_1 | E27=138 | F27=5 | G27=133 | H27=3.390242900670279 | I27=4.194920773895519 | J27=0.8081780523168274 | K27=0.4204312786389947 | L27=-4.907147896273203 | M27=11.68763369761376 | N27=4.942513645416465 | O27=0.6859349602027474 | P27=0.4939481018220622 | Q27=-6.385857637496304 | R27=13.16634343883686 | S27=0.3757463366090794 | T27=0.3569717903416834
+A28=M7 CPR, regime categorical | B28=cpr | C28=regime_1 + regime_2 + regime_3 + log_gdp | D28=regime_2 | E28=138 | F28=5 | G28=133 | H28=10.61306105515148 | I28=4.254607365632218 | J28=2.494486598430082 | K28=0.01383906559084393 | L28=2.197612491763675 | M28=19.02850961853929 | N28=5.124688630907388 | O28=2.070967002979128 | P28=0.04029533532894945 | Q28=0.4766254523867666 | R28=20.7494966579162 | S28=0.3757463366090794 | T28=0.3569717903416834
+A29=M7 CPR, regime categorical | B29=cpr | C29=regime_1 + regime_2 + regime_3 + log_gdp | D29=regime_3 | E29=138 | F29=5 | G29=133 | H29=12.47739202872073 | I29=5.6393267458602 | J29=2.21256766827358 | K29=0.02863329520569749 | L29=1.32302216952418 | M29=23.63176188791729 | N29=6.382512244404956 | O29=1.954934287773389 | P29=0.05268812120318175 | Q29=-0.1469699586753546 | R29=25.10175401611682 | S29=0.3757463366090794 | T29=0.3569717903416834
+A30=M7 CPR, regime categorical | B30=cpr | C30=regime_1 + regime_2 + regime_3 + log_gdp | D30=log_gdp | E30=138 | F30=5 | G30=133 | H30=9.004782449908598 | I30=1.559580511613726 | J30=5.773849046492117 | K30=5.206325296079878e-08 | L30=5.919992609613407 | M30=12.08957229020379 | N30=1.696646776009946 | O30=5.307399617429746 | P30=4.527922108745579e-07 | Q30=5.648880848015942 | R30=12.36068405180125 | S30=0.3757463366090794 | T30=0.3569717903416834
+A33=HC3: (X'X)^−1 X' diag[eᵢ²/(1−hᵢᵢ)²] X (X'X)^−1. Two-sided p = 2·Pr(Tdf ≥ |t|), df = n−k. 95% CI = β ± t0.975,df·SEHC3.
+
+-- 隐私证据矩阵
+A1=FemTech隐私证据矩阵
+A2=不同样本、方法和终点不合并为单一比例；每条记录保留各自的分子、分母与终点。
+A4=来源/案例 | B4=研究对象 | C4=平台 | D4=地区 | E4=样本量 | F4=分子 | G4=分母 | H4=实际终点 | I4=研究方法 | J4=证据类型 | K4=可比性限制 | L4=原始链接 | M4=后续整改/状态
+A5=Mozilla *Privacy Not Included* review | B5=20 period/pregnancy apps and 5 wearable devices | C5=Mobile apps and connected wearables | D5=Products available to US consumers | E5=25 | F5=18 | G5=25 | H5=Products assigned Mozilla's *Privacy Not Included* warning | I5=Desk-based product privacy/security review against Mozilla criteria | J5=Independent civil-society review | K5=Includes 5 devices; warning criteria are not equivalent to observed third-party transmission. | L5=https://www.mozillafoundation.org/en/blog/in-post-roe-v-wade-era-mozilla-labels-18-of-25-popular-period-and-pregnancy-tracking-tech-with-privacy-not-included-warning/ | M5=Product-level practices may have changed after 2022; the cited page is a contemporaneous review.
+A6=Grundy et al., BMJ (2019) | B6=24 medicines-related Android apps | C6=Android | D6=Apps available in four countries | E6=24 | F6=19 | G6=24 | H6=Apps sharing user data outside the app ecosystem | I6=Traffic analysis plus network mapping of data recipients | J6=Peer-reviewed empirical study | K6=Not a reproductive-health-app sample; endpoint differs from Mozilla's warning label. | L6=https://www.bmj.com/content/364/bmj.l920 | M6=No product-level remediation assessment in this workpaper.
+A7=FTC final order: Flo Health (2021) | B7=Flo period and ovulation tracking app | C7=Mobile app | D7=United States enforcement | H7=Alleged disclosure of sensitive health data to analytics/marketing firms contrary to privacy promises | I7=Regulatory investigation and consent order | J7=Individual enforcement case | K7=A case, not a prevalence estimate; cannot be pooled with audit proportions. | L7=https://www.ftc.gov/news-events/news/press-releases/2021/06/ftc-finalizes-order-flo-health-fertility-tracking-app-shared-sensitive-health-data-facebook-google | M7=Flo states that an independent privacy review required by the order was completed in March 2022.
+A8=FTC proposed order: Premom/Easy Healthcare (2023) | B8=Premom ovulation tracking app | C8=Mobile app | D8=United States enforcement | H8=Alleged sharing of sensitive health data; proposed order and US$100,000 civil penalty | I8=Regulatory investigation and proposed consent order | J8=Individual enforcement case | K8=A case, not a prevalence estimate; cannot be pooled with audit proportions. | L8=https://www.ftc.gov/news-events/news/press-releases/2023/05/ovulation-tracking-app-premom-will-be-barred-sharing-health-data-advertising-under-proposed-ftc | M8=The workpaper does not independently verify later compliance.
+
+-- 一致性检查
+A1=工作簿一致性检查
+A2=关键样本量、编码、缺失和公式错误检查；PASS表示当前工作簿内部一致。
+A4=检查项目 | B4=状态 | C4=含义
+A5=逐国底稿行数=167 | B5==IF(COUNTA('跨国底稿'!$A$5:$A$171)=167,"PASS","FAIL") | C5=维持167国分析总体
+A6=MMR有效n=167 | B6==IF(COUNT('跨国底稿'!$C$5:$C$171)=167,"PASS","FAIL") | C6=MMR数值完整
+A7=政治体制有效n=166 | B7==IF(COUNT('跨国底稿'!$H$5:$H$171)=166,"PASS","FAIL") | C7=PSE统一值缺失
+A8=政治体制无范围外值 | B8==IF(COUNTIF('跨国底稿'!$H$5:$H$171,"<0")+COUNTIF('跨国底稿'!$H$5:$H$171,">3")=0,"PASS","FAIL") | C8=仅允许0/1/2/3或空白
+A9=CPR有效n=139 | B9==IF(COUNT('跨国底稿'!$K$5:$K$171)=139,"PASS","FAIL") | C9=逐国CPR原始覆盖
+A10=CPR模型n=138 | B10==IF(COUNTIFS('跨国底稿'!$K$5:$K$171,"<>",'跨国底稿'!$H$5:$H$171,"<>")=138,"PASS","FAIL") | C10=PSE因政治体制缺失再少1国
+A11=CPR缺失=28 | B11==IF(COUNTIF('跨国底稿'!$M$5:$M$171,"Missing")=28,"PASS","FAIL") | C11=与刷新后的逐国表一致
+A12=CPR年份2010-2023 | B12==IF(AND(MIN('跨国底稿'!$L$5:$L$171)>=2010,MAX('跨国底稿'!$L$5:$L$171)<=2023),"PASS","FAIL") | C12=主样本年份规则
+A13=无公式错误 | B13==IF(SUMPRODUCT(--ISERROR('跨国底稿'!$G$5:$G$171))+SUMPRODUCT(--ISERROR('跨国底稿'!$M$5:$N$171))=0,"PASS","FAIL") | C13=关键公式列
+
+### data_only True
+
+-- 说明
+A1=FemTech 与生殖健康：跨国分析数据底稿（附件二）
+A2=两条证据链并列呈现：跨国模型检验政治体制类型与生殖健康结果的生态关联；隐私证据独立综述应用审计与执法案例。两者不合并，也不在国家层面相互连接。
+A4=项目 | B4=说明
+A5=论文定位 | B5=跨国部分仅检验政治体制类型与生殖健康结果的生态关联；隐私部分独立综述应用审计与执法证据。
+A6=分析总体 | B6=167国分析总体。2023年OWID存档政治体制序列无统一PSE观测值，因此含政治体制的模型 n=166，CPR 模型 n=138。
+A7=主要规格 | B7=log(MMR) ~ 政治体制有序趋势 + logGDP；CPR ~ 政治体制有序趋势 + logGDP。HC3为主要推断，经典OLS并列。
+A8=有序假设 | B8=政治体制0/1/2/3被视为等距线性趋势；三个虚拟变量模型作为放松等距假设的敏感性分析。
+A9=CPR规则 | B9=主样本采用2010–2023年最新非缺失值并逐国保留年份；另做2015–2023限制样本与加入观测年份的敏感性分析。
+A10=缺失风险 | B10=CPR缺失可能非随机，且在自由民主组集中。HC3只处理异方差，不处理选择性缺失。
+A11=数据与版本 | B11=政治体制锁定OWID 2026-08-05官方存档（V-Dem v16）；WDI JSON快照保留SHA-256。
+A12=推论边界 | B12=本工作簿中的国别模型只描述政治体制类型与生殖健康结果之间的生态关联。模型未检验隐私法效应，也未建立 FemTech 采用或隐私事件与政治体制之间的国家层面联系。
+
+-- 数据源
+A1=数据源登记表
+A2=完整URL、版本、日期、口径、原始文件名与SHA-256均为可追溯的审计字段。
+A4=数据集 | B4=来源机构 | C4=版本/存档 | D4=下载日期 | E4=完整URL | F4=查询范围 | G4=单位 | H4=观测年份规则 | I4=原始文件名 | J4=SHA-256
+A5=Maternal mortality ratio | B5=World Bank, World Development Indicators | C5=API snapshot; last updated 2026-07-13 | D5=2026-09-03 | E5=https://api.worldbank.org/v2/country/all/indicator/SH.STA.MMRT?format=json&per_page=20000 | F5=All economies; latest non-missing observation in 2010-2023 for the retained 167-country analytic sample | G5=Maternal deaths per 100,000 live births | H5=Latest non-missing value, 2010-2023 | I5=mmr.json | J5=d19e18021c680f5f910b13c9d9f93d4219824cc5b0f44350e1b69e8840b07c73
+A6=GDP per capita, PPP | B6=World Bank, World Development Indicators | C6=API snapshot; last updated 2026-07-13 | D6=2026-09-03 | E6=https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.PP.KD?format=json&per_page=20000 | F6=All economies; latest non-missing observation in 2010-2023 for the retained 167-country analytic sample | G6=Constant 2021 international dollars per person | H6=Latest non-missing value, 2010-2023; log generated as LN(raw GDP) | I6=gdp.json | J6=c610e48829239b4b7fbdae26883093fa70f0c2e4cff6845d314beec722c7f6a5
+A7=Contraceptive prevalence, any method | B7=World Bank, World Development Indicators | C7=API snapshot; last updated 2026-07-13 | D7=2026-09-03 | E7=https://api.worldbank.org/v2/country/all/indicator/SP.DYN.CONU.ZS?format=json&per_page=20000 | F7=All economies; latest non-missing observation in 2010-2023 for the retained 167-country analytic sample | G7=% of married women ages 15-49 | H7=Latest non-missing value, 2010-2023; missing retained and flagged | I7=cpr.json | J7=260237f909d0f09b84eae91b3746403ffaec82199b23c02a0669e9ff28cc76e5
+A8=Political regime (Regimes of the World) | B8=V-Dem v16, processed by Our World in Data | C8=OWID archive 2026-08-05 14:35 UTC; source last updated 2026-03-17 | D8=2026-09-03 | E8=https://archive.ourworldindata.org/20260805-143540/grapher/political-regime.html | F8=2023 classification for the retained 167-country analytic sample | G8=0 closed autocracy; 1 electoral autocracy; 2 electoral democracy; 3 liberal democracy | H8=Fixed at 2023 | I8=1210053.data.json + 1210053.metadata.json | J8=03b99952aae74eb78cdfaf600be6178eff422356e412447ad43d7f103e5bf1fd / 5b86ddda5ba7f246d1983e12e37e8628258d46eae179e88beed0d9cad822c24d
+A10=注：表中 SHA-256 为按上述 URL 于「下载日期」抓取的原始文件（WDI 三个 JSON 与 OWID 政治体制数据文件）校验值。重新抓取时若源端已更新，校验值可能不同；验证需使用同日抓取的原始文件。
+
+-- 描述统计
+A1=描述统计
+A2=所有指标直接引用“跨国底稿”；四分位数采用QUARTILE.INC，SD为样本标准差。
+A4=变量 | B4=n | C4=均值 | D4=SD | E4=中位数 | F4=IQR | G4=最小值 | H4=最大值 | I4=数据列
+A5=MMR per 100,000 live births | B5=167.0 | C5=116.94011976047904 | D5=168.2633728944505 | E5=41.0 | F5=145.5 | G5=1.0 | H5=993.0 | I5=mmr
+A6=log(MMR) | B6=167.0 | C6=3.6370803997765178 | D6=1.6758486043905083 | E6=3.713572066704308 | F6=2.7935202817541143 | G6=0.0 | H6=6.900730664045173 | I6=log_mmr
+A7=GDP per capita, PPP, constant 2021 intl $ | B7=167.0 | C7=25423.04654253079 | D7=26036.226628709777 | E7=15916.9580078125 | F7=34064.573540781246 | G7=1033.00937341776 | H7=130296.843789261 | I7=gdp_ppp_constant_2021
+A8=log(GDP per capita) | B8=167.0 | C8=9.571321862270617 | D8=1.1703796559864839 | E8=9.675140361229007 | F8=1.9535981184720654 | G8=6.940231543055004 | H8=11.77757054017383 | I8=log_gdp
+A9=Political regime code (0-3) | B9=166.0 | C9=1.5662650602409638 | D9=0.9871019238686286 | E9=2.0 | F9=1.0 | G9=0.0 | H9=3.0 | I9=regime_code
+A10=Contraceptive prevalence, any method (%) | B10=139.0 | C10=49.895562509020905 | D10=20.76801658884755 | E10=54.6 | F10=35.030962359297995 | G10=6.9 | H10=85.4748603351955 | I10=cpr
+A11=CPR observation year | B11=139.0 | C11=2017.7410071942445 | D11=3.5637834672433653 | E11=2018.0 | F11=6.0 | G11=2010.0 | H11=2023.0 | I11=cpr_year
+
+-- 缺失分析
+A1=CPR缺失分析
+A2=按政治体制类别统计；PSE因统一政治体制缺失，不纳入分组率。自由民主组缺失集中是主要选择偏倚风险。
+A4=政治体制代码 | B4=政治体制类别 | C4=总数 | D4=CPR观测数 | E4=CPR缺失数 | F4=缺失率
+A5=0 | B5=Closed autocracy | C5=27.0 | D5=24.0 | E5=3.0 | F5=0.1111111111111111
+A6=1 | B6=Electoral autocracy | C6=51.0 | D6=47.0 | E6=4.0 | F6=0.0784313725490196
+A7=2 | B7=Electoral democracy | C7=55.0 | D7=45.0 | E7=10.0 | F7=0.18181818181818182
+A8=3 | B8=Liberal democracy | C8=33.0 | D8=22.0 | E8=11.0 | F8=0.3333333333333333
+A11=CPR缺失国家清单
+A12=ISO3 | B12=国家 | C12=政治体制代码 | D12=政治体制类别 | E12=风险说明
+A13=BHR | B13=Bahrain | C13=0 | D13=Closed autocracy | E13=缺失可能非随机
+A14=BGR | B14=Bulgaria | C14=2 | D14=Electoral democracy | E14=缺失可能非随机
+A15=CAN | B15=Canada | C15=2 | D15=Electoral democracy | E15=缺失可能非随机
+A16=HRV | B16=Croatia | C16=2 | D16=Electoral democracy | E16=缺失可能非随机
+A17=CYP | B17=Cyprus | C17=3 | D17=Liberal democracy | E17=自由民主组集中缺失；可能影响CPR推断
+A18=CZE | B18=Czechia | C18=3 | D18=Liberal democracy | E18=自由民主组集中缺失；可能影响CPR推断
+A19=DNK | B19=Denmark | C19=3 | D19=Liberal democracy | E19=自由民主组集中缺失；可能影响CPR推断
+A20=GRC | B20=Greece | C20=2 | D20=Electoral democracy | E20=缺失可能非随机
+A21=HUN | B21=Hungary | C21=1 | D21=Electoral autocracy | E21=缺失可能非随机
+A22=ISL | B22=Iceland | C22=3 | D22=Liberal democracy | E22=自由民主组集中缺失；可能影响CPR推断
+A23=ISR | B23=Israel | C23=2 | D23=Electoral democracy | E23=缺失可能非随机
+A24=KWT | B24=Kuwait | C24=1 | D24=Electoral autocracy | E24=缺失可能非随机
+A25=LVA | B25=Latvia | C25=3 | D25=Liberal democracy | E25=自由民主组集中缺失；可能影响CPR推断
+A26=LBN | B26=Lebanon | C26=1 | D26=Electoral autocracy | E26=缺失可能非随机
+A27=LTU | B27=Lithuania | C27=2 | D27=Electoral democracy | E27=缺失可能非随机
+A28=LUX | B28=Luxembourg | C28=3 | D28=Liberal democracy | E28=自由民主组集中缺失；可能影响CPR推断
+A29=MLT | B29=Malta | C29=2 | D29=Electoral democracy | E29=缺失可能非随机
+A30=NZL | B30=New Zealand | C30=3 | D30=Liberal democracy | E30=自由民主组集中缺失；可能影响CPR推断
+A31=NOR | B31=Norway | C31=3 | D31=Liberal democracy | E31=自由民主组集中缺失；可能影响CPR推断
+A32=ROU | B32=Romania | C32=2 | D32=Electoral democracy | E32=缺失可能非随机
+A33=SYC | B33=Seychelles | C33=3 | D33=Liberal democracy | E33=自由民主组集中缺失；可能影响CPR推断
+A34=SGP | B34=Singapore | C34=1 | D34=Electoral autocracy | E34=缺失可能非随机
+A35=SVK | B35=Slovak Republic | C35=2 | D35=Electoral democracy | E35=缺失可能非随机
+A36=SVN | B36=Slovenia | C36=2 | D36=Electoral democracy | E36=缺失可能非随机
+A37=SWE | B37=Sweden | C37=3 | D37=Liberal democracy | E37=自由民主组集中缺失；可能影响CPR推断
+A38=SYR | B38=Syrian Arab Republic | C38=0 | D38=Closed autocracy | E38=缺失可能非随机
+A39=ARE | B39=United Arab Emirates | C39=0 | D39=Closed autocracy | E39=缺失可能非随机
+A40=URY | B40=Uruguay | C40=3 | D40=Liberal democracy | E40=自由民主组集中缺失；可能影响CPR推断
+
+-- 相关系数
+A1=双变量相关系数
+A2=Pearson r；每一行都显示自己的有效样本量，不将MMR与CPR统一标为n=167。
+A4=变量X | B4=变量Y | C4=n | D4=Pearson r | E4=解释
+A5=政治体制代码 | B5=log(MMR) | C5=166 | D5=-0.4413969772919867 | E5=双变量梯度；不作因果解释
+A6=政治体制代码 | B6=MMR | C6=166 | D6=-0.36795918103008973 | E6=双变量梯度；不作因果解释
+A7=政治体制代码 | B7=CPR | C7=138 | D7=0.4457185935277502 | E7=双变量正向梯度；CPR缺失需注意
+A8=logGDP | B8=log(MMR) | C8=167 | D8=-0.8497330746553201 | E8=背景相关
+A9=logGDP | B9=MMR | C9=167 | D9=0.5752048369746255 | E9=背景相关
+A10=logGDP | B10=CPR | C10=139 | D10=0.4886844960162175 | E10=背景相关
+A11=政治体制代码 | B11=logGDP | C11=166 | D11=0.4457185935277502 | E11=收入可能混杂体制与健康关联
+
+-- 模型结果
+A1=主要模型结果
+A2=HC3为主要推断；经典OLS并列。β是政治体制每提高一个类别的变化，前提是0–3等距趋势成立。
+A4=模型 | B4=政治体制项 | C4=n | D4=df | E4=β | F4=经典SE | G4=经典p | H4=HC3 SE | I4=HC3 p | J4=HC3 95%CI下限 | K4=HC3 95%CI上限 | L4=R² | M4=调整R²
+A5=M1 Primary: log(MMR), ordinal regime | B5=regime_code | C5=166 | D5=163 | E5=-0.05307168635970483 | F5=0.07920164047038734 | G5=0.5037529732829312 | H5=0.07518112726812286 | I5=0.4812470390486583 | J5=-0.2015261912948643 | K5=0.09538281857545461 | L5=0.7311693238986037 | M5=0.7278707879955191
+A6=M3 Primary: CPR 2010-2023 latest | B6=regime_code | C6=138 | D6=135 | E6=4.827299112462815 | F6=1.677145235703393 | G6=0.00465021353475013 | H6=1.9817132798377 | I6=0.01615778216759345 | J6=0.908080063257922 | K6=8.746518161667709 | L6=0.3726022737484496 | M6=0.3633074926187969
+A8=完整参数表（包括截距和logGDP）
+A9=模型 | B9=模型项 | C9=n | D9=df | E9=β | F9=经典SE | G9=经典p | H9=HC3 SE | I9=HC3 p | J9=HC3 95%CI下限 | K9=HC3 95%CI上限 | L9=R² | M9=调整R²
+A10=M1 Primary: log(MMR), ordinal regime | B10=Intercept | C10=166 | D10=163 | E10=15.25002011227093 | F10=0.592408105544815 | G10=2.604644648227683e-59 | H10=0.5285871637468168 | I10=6.189430474074346e-66 | J10=14.20625888441307 | K10=16.29378134012878 | L10=0.7311693238986037 | M10=0.7278707879955191
+A11=M1 Primary: log(MMR), ordinal regime | B11=regime_code | C11=166 | D11=163 | E11=-0.05307168635970483 | F11=0.07920164047038734 | G11=0.5037529732829312 | H11=0.07518112726812286 | I11=0.4812470390486583 | J11=-0.2015261912948643 | K11=0.09538281857545461 | L11=0.7311693238986037 | M11=0.7278707879955191
+A12=M1 Primary: log(MMR), ordinal regime | B12=log_gdp | C12=166 | D12=163 | E12=-1.203359260253577 | F12=0.0667300756369925 | G12=1.134586291950652e-40 | H12=0.06114314994949469 | I12=6.339479050637904e-45 | J12=-1.324094029546896 | K12=-1.082624490960258 | L12=0.7311693238986037 | M12=0.7278707879955191
+A13=M3 Primary: CPR 2010-2023 latest | B13=Intercept | C13=138 | D13=135 | E13=-39.68471042393156 | F13=12.57975668124696 | G13=0.001981281589334687 | H13=12.83374750228946 | I13=0.002414339244272584 | J13=-65.06591374703687 | K13=-14.30350710082626 | L13=0.3726022737484496 | M13=0.3633074926187969
+A14=M3 Primary: CPR 2010-2023 latest | B14=regime_code | C14=138 | D14=135 | E14=4.827299112462815 | F14=1.677145235703393 | G14=0.00465021353475013 | H14=1.9817132798377 | I14=0.01615778216759345 | J14=0.908080063257922 | K14=8.746518161667709 | L14=0.3726022737484496 | M14=0.3633074926187969
+A15=M3 Primary: CPR 2010-2023 latest | B15=log_gdp | C15=138 | D15=135 | E15=8.820276715945392 | F15=1.44175195040604 | G15=9.629503374636667e-09 | H15=1.584436436628153 | I15=1.347784295869305e-07 | J15=5.686749011475474 | K15=11.95380442041531 | L15=0.3726022737484496 | M15=0.3633074926187969
+
+-- 稳健性分析
+A1=稳健性分析
+A2=本表报告全部设定的敏感性规格，用于比较估计方向、大小和不确定性。
+A4=模型 | B4=政治体制项 | C4=n | D4=df | E4=β | F4=经典SE | G4=经典p | H4=HC3 SE | I4=HC3 p | J4=HC3 95%CI下限 | K4=HC3 95%CI上限 | L4=R² | M4=调整R²
+A5=M2 Sensitivity: raw MMR, ordinal regime | B5=regime_code | C5=166 | D5=163 | E5=-3.487377809125705 | F5=10.61878206638417 | G5=0.7430186723191619 | H5=9.245487845639168 | I5=0.7065172434197138 | J5=-21.74374574191084 | K5=14.76899012365943 | L5=0.5203797240194991 | M5=0.5144948126577751
+A6=M3 Primary: CPR 2010-2023 latest | B6=regime_code | C6=138 | D6=135 | E6=4.827299112462815 | F6=1.677145235703393 | G6=0.00465021353475013 | H6=1.9817132798377 | I6=0.01615778216759345 | J6=0.908080063257922 | K6=8.746518161667709 | L6=0.3726022737484496 | M6=0.3633074926187969
+A7=M4 CPR + observation year | B7=regime_code | C7=138 | D7=134 | E7=4.800465422538489 | F7=1.686762133407764 | G7=0.005124351403905187 | H7=2.029920076102907 | I7=0.01947173150128501 | J7=0.7856372091986383 | K7=8.815293635878339 | L7=0.3728703606087355 | M7=0.3588301448014684
+A8=M5 CPR restricted to 2015-2023 | B8=regime_code | C8=109 | D8=106 | E8=3.265264592786442 | F8=2.015267222240224 | G8=0.1081468866726037 | H8=2.361611343159751 | I8=0.1696804824745745 | J8=-1.416859589386042 | K8=7.947388774958926 | L8=0.3420399823357394 | M8=0.32962564237981
+A9=M6 log(MMR), regime categorical | B9=regime_1 | C9=166 | D9=161 | E9=0.1025613393220575 | F9=0.2095317915793333 | G9=0.6251690928932836 | H9=0.2135355712501113 | I9=0.6316653519575984 | J9=-0.3191304346580481 | K9=0.5242531133021633 | L9=0.7322444819726752 | M9=0.7255921709657851
+A10=M6 log(MMR), regime categorical | B10=regime_2 | C10=166 | D10=161 | E10=-0.04554515388920801 | F10=0.2091757792471332 | G10=0.8279103139392886 | H10=0.2035232822629966 | I10=0.8232094756905551 | J10=-0.4474645785606705 | K10=0.3563742707822545 | L10=0.7322444819726752 | M10=0.7255921709657851
+A11=M6 log(MMR), regime categorical | B11=regime_3 | C11=166 | D11=161 | E11=-0.1190141623358396 | F11=0.2572468426227731 | G11=0.6442429703785975 | H11=0.2408543443488522 | I11=0.6218855143669763 | J11=-0.5946552704878838 | K11=0.3566269458162046 | L11=0.7322444819726752 | M11=0.7255921709657851
+A12=M7 CPR, regime categorical | B12=regime_1 | C12=138 | D12=133 | E12=3.390242900670279 | F12=4.194920773895519 | G12=0.4204312786389947 | H12=4.942513645416465 | I12=0.4939481018220622 | J12=-6.385857637496304 | K12=13.16634343883686 | L12=0.3757463366090794 | M12=0.3569717903416834
+A13=M7 CPR, regime categorical | B13=regime_2 | C13=138 | D13=133 | E13=10.61306105515148 | F13=4.254607365632218 | G13=0.01383906559084393 | H13=5.124688630907388 | I13=0.04029533532894945 | J13=0.4766254523867666 | K13=20.7494966579162 | L13=0.3757463366090794 | M13=0.3569717903416834
+A14=M7 CPR, regime categorical | B14=regime_3 | C14=138 | D14=133 | E14=12.47739202872073 | F14=5.6393267458602 | G14=0.02863329520569749 | H14=6.382512244404956 | I14=0.05268812120318175 | J14=-0.1469699586753546 | K14=25.10175401611682 | L14=0.3757463366090794 | M14=0.3569717903416834
+
+-- 模型输出与HC3结果
+A1=OLS与HC3完整计算记录
+A2=根据逐国底稿在外部统计程序中计算；p 值与 95% 置信区间均使用有限自由度 t 分布。下方给出计算公式与完整输出。
+A4=模型 | B4=因变量 | C4=预测变量 | D4=项 | E4=n | F4=k | G4=df | H4=β | I4=经典SE | J4=经典t | K4=经典p | L4=经典CI下 | M4=经典CI上 | N4=HC3 SE | O4=HC3 t | P4=HC3 p | Q4=HC3 CI下 | R4=HC3 CI上 | S4=R² | T4=调整R²
+A5=M1 Primary: log(MMR), ordinal regime | B5=log_mmr | C5=regime_code + log_gdp | D5=Intercept | E5=166 | F5=3 | G5=163 | H5=15.25002011227093 | I5=0.592408105544815 | J5=25.74242311935632 | K5=2.604644648227683e-59 | L5=14.08023648140589 | M5=16.41980374313596 | N5=0.5285871637468168 | O5=28.85053054291609 | P5=6.189430474074346e-66 | Q5=14.20625888441307 | R5=16.29378134012878 | S5=0.7311693238986037 | T5=0.7278707879955191
+A6=M1 Primary: log(MMR), ordinal regime | B6=log_mmr | C6=regime_code + log_gdp | D6=regime_code | E6=166 | F6=3 | G6=163 | H6=-0.05307168635970483 | I6=0.07920164047038734 | J6=-0.6700831705568999 | K6=0.5037529732829312 | L6=-0.2094651956529503 | M6=0.1033218229335406 | N6=0.07518112726812286 | O6=-0.7059176722694269 | P6=0.4812470390486583 | Q6=-0.2015261912948643 | R6=0.09538281857545461 | S6=0.7311693238986037 | T6=0.7278707879955191
+A7=M1 Primary: log(MMR), ordinal regime | B7=log_mmr | C7=regime_code + log_gdp | D7=log_gdp | E7=166 | F7=3 | G7=163 | H7=-1.203359260253577 | I7=0.0667300756369925 | J7=-18.033236869081 | K7=1.134586291950652e-40 | L7=-1.335126110564903 | M7=-1.071592409942252 | N7=0.06114314994949469 | O7=-19.68101514638309 | P7=6.339479050637904e-45 | Q7=-1.324094029546896 | R7=-1.082624490960258 | S7=0.7311693238986037 | T7=0.7278707879955191
+A8=M2 Sensitivity: raw MMR, ordinal regime | B8=mmr | C8=regime_code + log_gdp | D8=Intercept | E8=166 | F8=3 | G8=163 | H8=1103.087720548699 | I8=79.42578625618133 | J8=13.88828203715579 | K8=1.939106379107027e-29 | L8=946.2516074681399 | M8=1259.923833629257 | N8=98.59443328065854 | O8=11.18813389198813 | P8=6.371903403250571e-22 | Q8=908.4007251031164 | R8=1297.774715994281 | S8=0.5203797240194991 | T8=0.5144948126577751
+A9=M2 Sensitivity: raw MMR, ordinal regime | B9=mmr | C9=regime_code + log_gdp | D9=regime_code | E9=166 | F9=3 | G9=163 | H9=-3.487377809125705 | I9=10.61878206638417 | J9=-0.3284159885120611 | K9=0.7430186723191619 | L9=-24.45548632201595 | M9=17.48073070376454 | N9=9.245487845639168 | O9=-0.3771978144745062 | P9=0.7065172434197138 | Q9=-21.74374574191084 | R9=14.76899012365943 | S9=0.5203797240194991 | T9=0.5144948126577751
+A10=M2 Sensitivity: raw MMR, ordinal regime | B10=mmr | C10=regime_code + log_gdp | D10=log_gdp | E10=166 | F10=3 | G10=163 | H10=-102.3362546708231 | I10=8.946685021347388 | J10=-11.43845507320778 | K10=1.288567573228617e-22 | L10=-120.0025991899493 | M10=-84.66991015169691 | N10=10.15821036172587 | O10=-10.07424054303954 | P10=7.344032129250555e-19 | Q10=-122.3949069559776 | R10=-82.27760238566864 | S10=0.5203797240194991 | T10=0.5144948126577751
+A11=M3 Primary: CPR 2010-2023 latest | B11=cpr | C11=regime_code + log_gdp | D11=Intercept | E11=138 | F11=3 | G11=135 | H11=-39.68471042393156 | I11=12.57975668124696 | J11=-3.154648490387004 | K11=0.001981281589334687 | L11=-64.56359806177565 | M11=-14.80582278608747 | N11=12.83374750228946 | O11=-3.092215303195896 | P11=0.002414339244272584 | Q11=-65.06591374703687 | R11=-14.30350710082626 | S11=0.3726022737484496 | T11=0.3633074926187969
+A12=M3 Primary: CPR 2010-2023 latest | B12=cpr | C12=regime_code + log_gdp | D12=regime_code | E12=138 | F12=3 | G12=135 | H12=4.827299112462815 | I12=1.677145235703393 | J12=2.878283293359654 | K12=0.00465021353475013 | L12=1.510421932031195 | M12=8.144176292894436 | N12=1.9817132798377 | O12=2.435922068836399 | P12=0.01615778216759345 | Q12=0.908080063257922 | R12=8.746518161667709 | S12=0.3726022737484496 | T12=0.3633074926187969
+A13=M3 Primary: CPR 2010-2023 latest | B13=cpr | C13=regime_code + log_gdp | D13=log_gdp | E13=138 | F13=3 | G13=135 | H13=8.820276715945392 | I13=1.44175195040604 | J13=6.117749113126805 | K13=9.629503374636667e-09 | L13=5.968935017956452 | M13=11.67161841393433 | N13=1.584436436628153 | O13=5.566822696097462 | P13=1.347784295869305e-07 | Q13=5.686749011475474 | R13=11.95380442041531 | S13=0.3726022737484496 | T13=0.3633074926187969
+A14=M4 CPR + observation year | B14=cpr | C14=regime_code + log_gdp + cpr_year_centered_2018 | D14=Intercept | E14=138 | F14=4 | G14=134 | H14=-38.76032599647121 | I14=13.20152079383328 | J14=-2.936050065881577 | K14=0.003913538101254051 | L14=-64.87063386821208 | M14=-12.65001812473034 | N14=13.51527026127204 | O14=-2.867891299779539 | P14=0.00480162325258804 | Q14=-65.49117564649322 | R14=-12.0294763464492 | S14=0.3728703606087355 | T14=0.3588301448014684
+A15=M4 CPR + observation year | B15=cpr | C15=regime_code + log_gdp + cpr_year_centered_2018 | D15=regime_code | E15=138 | F15=4 | G15=134 | H15=4.800465422538489 | I15=1.686762133407764 | J15=2.845964660612882 | K15=0.005124351403905187 | L15=1.464343827347418 | M15=8.13658701772956 | N15=2.029920076102907 | O15=2.36485439946707 | P15=0.01947173150128501 | Q15=0.7856372091986383 | R15=8.815293635878339 | S15=0.3728703606087355 | T15=0.3588301448014684
+A16=M4 CPR + observation year | B16=cpr | C16=regime_code + log_gdp + cpr_year_centered_2018 | D16=log_gdp | E16=138 | F16=4 | G16=134 | H16=8.722590334327881 | I16=1.503281299972129 | J16=5.802367351000505 | K16=4.489985580014114e-08 | L16=5.74936185761797 | M16=11.69581881103779 | N16=1.631349356780588 | O16=5.346856145848252 | P16=3.750510097372652e-07 | Q16=5.496065556076221 | R16=11.94911511257954 | S16=0.3728703606087355 | T16=0.3588301448014684
+A17=M4 CPR + observation year | B17=cpr | C17=regime_code + log_gdp + cpr_year_centered_2018 | D17=cpr_year_centered_2018 | E17=138 | F17=4 | G17=134 | H17=-0.10157059787539 | I17=0.424381563870891 | J17=-0.2393379131481091 | K17=0.8112092587315769 | L17=-0.9409233861492895 | M17=0.7377821903985095 | N17=0.468549837970239 | O17=-0.2167765083761303 | P17=0.8287122086295647 | Q17=-1.028280536352478 | R17=0.8251393406016982 | S17=0.3728703606087355 | T17=0.3588301448014684
+A18=M5 CPR restricted to 2015-2023 | B18=cpr | C18=regime_code + log_gdp | D18=Intercept | E18=109 | F18=3 | G18=106 | H18=-44.28433147638727 | I18=14.49732950259357 | J18=-3.054654408487081 | K18=0.002850062736294063 | L18=-73.0266972503411 | M18=-15.54196570243344 | N18=15.18608237352764 | O18=-2.916112950472577 | P18=0.004326153301650633 | Q18=-74.39221680625008 | R18=-14.17644614652446 | S18=0.3420399823357394 | T18=0.32962564237981
+A19=M5 CPR restricted to 2015-2023 | B19=cpr | C19=regime_code + log_gdp | D19=regime_code | E19=109 | F19=3 | G19=106 | H19=3.265264592786442 | I19=2.015267222240224 | J19=1.620263832384813 | K19=0.1081468866726037 | L19=-0.7301986836415293 | M19=7.260727869214413 | N19=2.361611343159751 | O19=1.3826426614371 | P19=0.1696804824745745 | Q19=-1.416859589386042 | R19=7.947388774958926 | S19=0.3420399823357394 | T19=0.32962564237981
+A20=M5 CPR restricted to 2015-2023 | B20=cpr | C20=regime_code + log_gdp | D20=log_gdp | E20=109 | F20=3 | G20=106 | H20=9.548833951877022 | I20=1.697776559448121 | J20=5.624317227574966 | K20=1.527214833172684e-07 | L20=6.182826794119258 | M20=12.91484110963479 | N20=1.892365996366135 | O20=5.045976291168525 | P20=1.879938483478784e-06 | Q20=5.797034309327857 | R20=13.30063359442619 | S20=0.3420399823357394 | T20=0.32962564237981
+A21=M6 log(MMR), regime categorical | B21=log_mmr | C21=regime_1 + regime_2 + regime_3 + log_gdp | D21=Intercept | E21=166 | F21=5 | G21=161 | H21=15.05633821835175 | I21=0.6660149288462934 | J21=22.60660769936965 | K21=7.937573630988333e-52 | L21=13.74108654764313 | M21=16.37158988906036 | N21=0.6221785001469085 | O21=24.199386855696 | P21=1.64165781038989e-55 | Q21=13.82765508175188 | R21=16.28502135495162 | S21=0.7322444819726752 | T21=0.7255921709657851
+A22=M6 log(MMR), regime categorical | B22=log_mmr | C22=regime_1 + regime_2 + regime_3 + log_gdp | D22=regime_1 | E22=166 | F22=5 | G22=161 | H22=0.1025613393220575 | I22=0.2095317915793333 | J22=0.4894786540458018 | K22=0.6251690928932836 | L22=-0.3112237381666317 | M22=0.5163464168107468 | N22=0.2135355712501113 | O22=0.4803009574546661 | P22=0.6316653519575984 | Q22=-0.3191304346580481 | R22=0.5242531133021633 | S22=0.7322444819726752 | T22=0.7255921709657851
+A23=M6 log(MMR), regime categorical | B23=log_mmr | C23=regime_1 + regime_2 + regime_3 + log_gdp | D23=regime_2 | E23=166 | F23=5 | G23=161 | H23=-0.04554515388920801 | I23=0.2091757792471332 | J23=-0.2177362697207794 | K23=0.8279103139392886 | L23=-0.4586271753435075 | M23=0.3675368675650915 | N23=0.2035232822629966 | O23=-0.223783507138774 | P23=0.8232094756905551 | Q23=-0.4474645785606705 | R23=0.3563742707822545 | S23=0.7322444819726752 | T23=0.7255921709657851
+A24=M6 log(MMR), regime categorical | B24=log_mmr | C24=regime_1 + regime_2 + regime_3 + log_gdp | D24=regime_3 | E24=166 | F24=5 | G24=161 | H24=-0.1190141623358396 | I24=0.2572468426227731 | J24=-0.4626457651430226 | K24=0.6442429703785975 | L24=-0.6270273087231383 | M24=0.3889989840514591 | N24=0.2408543443488522 | O24=-0.4941333429446474 | P24=0.6218855143669763 | Q24=-0.5946552704878838 | R24=0.3566269458162046 | S24=0.7322444819726752 | T24=0.7255921709657851
+A25=M6 log(MMR), regime categorical | B25=log_mmr | C25=regime_1 + regime_2 + regime_3 + log_gdp | D25=log_gdp | E25=166 | F25=5 | G25=161 | H25=-1.191059260993163 | I25=0.07057891447517314 | J25=-16.87556786399895 | K25=1.943408021082291e-37 | L25=-1.330439072405311 | M25=-1.051679449581014 | N25=0.06698449995010695 | O25=-17.78111745075826 | P25=7.985742912957891e-40 | Q25=-1.323340793516125 | R25=-1.0587777284702 | S25=0.7322444819726752 | T25=0.7255921709657851
+A26=M7 CPR, regime categorical | B26=cpr | C26=regime_1 + regime_2 + regime_3 + log_gdp | D26=Intercept | E26=138 | F26=5 | G26=133 | H26=-40.91246992030104 | I26=14.43564817290128 | J26=-2.834127669937418 | K26=0.005312237804165203 | L26=-69.46562282919751 | M26=-12.35931701140458 | N26=14.72884153952836 | O26=-2.777711323086929 | P26=0.006266026007361995 | Q26=-70.04554795129161 | R26=-11.77939188931047 | S26=0.3757463366090794 | T26=0.3569717903416834
+A27=M7 CPR, regime categorical | B27=cpr | C27=regime_1 + regime_2 + regime_3 + log_gdp | D27=regime_1 | E27=138 | F27=5 | G27=133 | H27=3.390242900670279 | I27=4.194920773895519 | J27=0.8081780523168274 | K27=0.4204312786389947 | L27=-4.907147896273203 | M27=11.68763369761376 | N27=4.942513645416465 | O27=0.6859349602027474 | P27=0.4939481018220622 | Q27=-6.385857637496304 | R27=13.16634343883686 | S27=0.3757463366090794 | T27=0.3569717903416834
+A28=M7 CPR, regime categorical | B28=cpr | C28=regime_1 + regime_2 + regime_3 + log_gdp | D28=regime_2 | E28=138 | F28=5 | G28=133 | H28=10.61306105515148 | I28=4.254607365632218 | J28=2.494486598430082 | K28=0.01383906559084393 | L28=2.197612491763675 | M28=19.02850961853929 | N28=5.124688630907388 | O28=2.070967002979128 | P28=0.04029533532894945 | Q28=0.4766254523867666 | R28=20.7494966579162 | S28=0.3757463366090794 | T28=0.3569717903416834
+A29=M7 CPR, regime categorical | B29=cpr | C29=regime_1 + regime_2 + regime_3 + log_gdp | D29=regime_3 | E29=138 | F29=5 | G29=133 | H29=12.47739202872073 | I29=5.6393267458602 | J29=2.21256766827358 | K29=0.02863329520569749 | L29=1.32302216952418 | M29=23.63176188791729 | N29=6.382512244404956 | O29=1.954934287773389 | P29=0.05268812120318175 | Q29=-0.1469699586753546 | R29=25.10175401611682 | S29=0.3757463366090794 | T29=0.3569717903416834
+A30=M7 CPR, regime categorical | B30=cpr | C30=regime_1 + regime_2 + regime_3 + log_gdp | D30=log_gdp | E30=138 | F30=5 | G30=133 | H30=9.004782449908598 | I30=1.559580511613726 | J30=5.773849046492117 | K30=5.206325296079878e-08 | L30=5.919992609613407 | M30=12.08957229020379 | N30=1.696646776009946 | O30=5.307399617429746 | P30=4.527922108745579e-07 | Q30=5.648880848015942 | R30=12.36068405180125 | S30=0.3757463366090794 | T30=0.3569717903416834
+A33=HC3: (X'X)^−1 X' diag[eᵢ²/(1−hᵢᵢ)²] X (X'X)^−1. Two-sided p = 2·Pr(Tdf ≥ |t|), df = n−k. 95% CI = β ± t0.975,df·SEHC3.
+
+-- 隐私证据矩阵
+A1=FemTech隐私证据矩阵
+A2=不同样本、方法和终点不合并为单一比例；每条记录保留各自的分子、分母与终点。
+A4=来源/案例 | B4=研究对象 | C4=平台 | D4=地区 | E4=样本量 | F4=分子 | G4=分母 | H4=实际终点 | I4=研究方法 | J4=证据类型 | K4=可比性限制 | L4=原始链接 | M4=后续整改/状态
+A5=Mozilla *Privacy Not Included* review | B5=20 period/pregnancy apps and 5 wearable devices | C5=Mobile apps and connected wearables | D5=Products available to US consumers | E5=25 | F5=18 | G5=25 | H5=Products assigned Mozilla's *Privacy Not Included* warning | I5=Desk-based product privacy/security review against Mozilla criteria | J5=Independent civil-society review | K5=Includes 5 devices; warning criteria are not equivalent to observed third-party transmission. | L5=https://www.mozillafoundation.org/en/blog/in-post-roe-v-wade-era-mozilla-labels-18-of-25-popular-period-and-pregnancy-tracking-tech-with-privacy-not-included-warning/ | M5=Product-level practices may have changed after 2022; the cited page is a contemporaneous review.
+A6=Grundy et al., BMJ (2019) | B6=24 medicines-related Android apps | C6=Android | D6=Apps available in four countries | E6=24 | F6=19 | G6=24 | H6=Apps sharing user data outside the app ecosystem | I6=Traffic analysis plus network mapping of data recipients | J6=Peer-reviewed empirical study | K6=Not a reproductive-health-app sample; endpoint differs from Mozilla's warning label. | L6=https://www.bmj.com/content/364/bmj.l920 | M6=No product-level remediation assessment in this workpaper.
+A7=FTC final order: Flo Health (2021) | B7=Flo period and ovulation tracking app | C7=Mobile app | D7=United States enforcement | H7=Alleged disclosure of sensitive health data to analytics/marketing firms contrary to privacy promises | I7=Regulatory investigation and consent order | J7=Individual enforcement case | K7=A case, not a prevalence estimate; cannot be pooled with audit proportions. | L7=https://www.ftc.gov/news-events/news/press-releases/2021/06/ftc-finalizes-order-flo-health-fertility-tracking-app-shared-sensitive-health-data-facebook-google | M7=Flo states that an independent privacy review required by the order was completed in March 2022.
+A8=FTC proposed order: Premom/Easy Healthcare (2023) | B8=Premom ovulation tracking app | C8=Mobile app | D8=United States enforcement | H8=Alleged sharing of sensitive health data; proposed order and US$100,000 civil penalty | I8=Regulatory investigation and proposed consent order | J8=Individual enforcement case | K8=A case, not a prevalence estimate; cannot be pooled with audit proportions. | L8=https://www.ftc.gov/news-events/news/press-releases/2023/05/ovulation-tracking-app-premom-will-be-barred-sharing-health-data-advertising-under-proposed-ftc | M8=The workpaper does not independently verify later compliance.
+
+-- 一致性检查
+A1=工作簿一致性检查
+A2=关键样本量、编码、缺失和公式错误检查；PASS表示当前工作簿内部一致。
+A4=检查项目 | B4=状态 | C4=含义
+A5=逐国底稿行数=167 | B5=PASS | C5=维持167国分析总体
+A6=MMR有效n=167 | B6=PASS | C6=MMR数值完整
+A7=政治体制有效n=166 | B7=PASS | C7=PSE统一值缺失
+A8=政治体制无范围外值 | B8=PASS | C8=仅允许0/1/2/3或空白
+A9=CPR有效n=139 | B9=PASS | C9=逐国CPR原始覆盖
+A10=CPR模型n=138 | B10=PASS | C10=PSE因政治体制缺失再少1国
+A11=CPR缺失=28 | B11=PASS | C11=与刷新后的逐国表一致
+A12=CPR年份2010-2023 | B12=PASS | C12=主样本年份规则
+A13=无公式错误 | B13=PASS | C13=关键公式列

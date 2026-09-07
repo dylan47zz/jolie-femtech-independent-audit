@@ -1,0 +1,4 @@
+Fontconfig warning: no <cachedir> elements found. Check configuration.
+Fontconfig warning: adding <cachedir>/@.__________________________________________________OOO/var/cache/fontconfig</cachedir>
+Fontconfig warning: adding <cachedir prefix="xdg">fontconfig</cachedir>
+convert /Users/dylong/Main/projects/xy_temp2/审计报告_Jolie_FemTech_2026-09-07.docx as a Writer document -> /Users/dylong/Main/projects/xy_temp2/audit_artifacts/report_render_20260907/审计报告_Jolie_FemTech_2026-09-07.pdf using filter : writer_pdf_Export

@@ -1,0 +1,5 @@
+paths ['/api/v1/indicators/1210053.3cbm2rstx3.data.json', '/api/v1/indicators/1210053.2a4g0goun3.metadata.json', '/api/v1/indicators/1210053.3cbm2rstx3.data.json', '/api/v1/indicators/1210053.2a4g0goun3.metadata.json']
+1210053.3cbm2rstx3.data.json 404 27150 62c1c0b235e26952857139537b65f8272026cd1c385c1bf6dba20481ee8a6619 text/html
+1210053.2a4g0goun3.metadata.json 404 27150 62c1c0b235e26952857139537b65f8272026cd1c385c1bf6dba20481ee8a6619 text/html
+Expecting value: line 1 column 1 (char 0)
+Expecting value: line 1 column 1 (char 0)
